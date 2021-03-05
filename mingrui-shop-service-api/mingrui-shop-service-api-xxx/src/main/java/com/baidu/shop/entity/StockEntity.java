@@ -23,12 +23,12 @@ public class StockEntity {
             PRIMARY KEY (`sku_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='库存表，代表库存，秒杀库存等信息';*/
 
-    @Id
-    private Long skuId;
+		@Id
+		private Long skuId;
 
-    private Integer seckillStock;
+		private Integer seckillStock;
 
-    private Integer seckillTotal;
+		private Integer seckillTotal;
 
-    private Integer stock;
+		private Integer stock;
 }

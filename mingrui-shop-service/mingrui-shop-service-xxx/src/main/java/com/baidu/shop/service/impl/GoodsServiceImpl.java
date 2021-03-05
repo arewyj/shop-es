@@ -176,7 +176,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
     }
 
     @Override
-    public Result<PageInfo<SpuDTO>> getSpuInfo(SpuDTO spuDTO) {
+    public Result<List<SpuDTO>> getSpuInfo(SpuDTO spuDTO) {
         if (ObjectUtil.isNotNull(spuDTO.getPage()) && ObjectUtil.isNotNull(spuDTO.getRows()))
             PageHelper.startPage(spuDTO.getPage(),spuDTO.getRows());
         if (!StringUtils.isEmpty(spuDTO.getSort()) && !StringUtils.isEmpty(spuDTO.getOrder()))

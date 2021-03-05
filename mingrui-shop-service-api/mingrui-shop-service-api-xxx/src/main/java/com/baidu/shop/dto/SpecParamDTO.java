@@ -41,7 +41,6 @@ public class SpecParamDTO {
     private Boolean numeric;
 
     @ApiModelProperty(value = "数字类型参数的单位")
-    @NotEmpty(message = "数字类型参数的单位不能为空",groups = {MingruiOperation.Add.class,MingruiOperation.Update.class})
     private String unit;
 
     @ApiModelProperty(value = "是否是sku通用属性")
@@ -53,6 +52,5 @@ public class SpecParamDTO {
     private Boolean searching;
 
     @ApiModelProperty(value = "数值类型参数")
-    @NotEmpty(message = "数值类型参数不能为空",groups = {MingruiOperation.Add.class,MingruiOperation.Update.class})
     private String segments;
 }

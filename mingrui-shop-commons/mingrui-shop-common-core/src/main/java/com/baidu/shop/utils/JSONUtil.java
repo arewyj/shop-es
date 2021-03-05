@@ -28,6 +28,18 @@ import java.util.Map;
  * @Version V1.0
  **/
 public class JSONUtil {
+    public static Map<String, String> toMapValueString(String json) {
+        Map<String, String> map = gson.fromJson(json, new TypeToken<Map<String,
+                String>>() {
+        }.getType());
+        return map;
+    }
+    public static Map<String, List<String>> toMapValueStrList(String json) {
+        Map<String, List<String>> map = gson.fromJson(json, new
+                TypeToken<Map<String, List<String>>>() {}.getType());
+        return map;
+    }
+
     private static Gson gson = null;
     static {
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();// todo yyyy-MM-dd HH:mm:ss

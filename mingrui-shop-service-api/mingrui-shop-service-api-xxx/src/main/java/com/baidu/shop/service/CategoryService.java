@@ -40,4 +40,8 @@ public interface CategoryService {
     @ApiOperation(value = "新增分类")
     @PostMapping(value = "/category/save")
     Result<JsonObject> saveCateGory(@Validated({MingruiOperation.Add.class})@RequestBody CategoryEntity categoryEntity);
+
+    @ApiOperation("通过Id集合查询分类")
+    @GetMapping(value = "/category/getCategoryByIdList")
+    Result<List<CategoryEntity>> getCategoryByIdList(@RequestParam String ids);
 }

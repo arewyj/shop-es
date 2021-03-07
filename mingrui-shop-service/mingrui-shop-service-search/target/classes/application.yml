@@ -1,6 +1,8 @@
 server:
   port: 8300
 spring:
+  jackson:
+      default-property-inclusion: non_null
   elasticsearch:
     rest:
       uris: 81.70.213.75:9200

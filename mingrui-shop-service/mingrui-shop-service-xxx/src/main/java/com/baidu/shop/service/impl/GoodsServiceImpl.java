@@ -3,6 +3,8 @@ package com.baidu.shop.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.shop.base.BaseApiService;
 import com.baidu.shop.base.Result;
+import com.baidu.shop.constant.MqMessageConstant;
+import com.baidu.shop.constant.MrRabbitMQ;
 import com.baidu.shop.dto.SkuDTO;
 import com.baidu.shop.dto.SpuDTO;
 import com.baidu.shop.dto.SpuDetailDTO;
@@ -14,7 +16,6 @@ import com.baidu.shop.utils.BaiduBeanUtils;
 import com.baidu.shop.utils.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +57,9 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
     @Resource
     private StockMapper stockMapper;
 
+    @Resource
+    private MrRabbitMQ mrRabbitMQ;
+
     @Override
     @Transactional
     public Result<JSONObject> updateSaleable(SpuDTO spuDTO) {
@@ -83,6 +86,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         //删除sku和stock信息
         this.deleteSkuAndStockInfo(spuId);
 
+       // mrRabbitMQ.send(spuId+"", MqMessageConstant.SPU_ROUT_KEY_DELETE);
         return this.setResultSuccess();
     }
 
@@ -95,8 +99,9 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         List<Long> skuIdList = skuEntities.stream().map(skuEntity ->
                 skuEntity.getId()
         ).collect(Collectors.toList());
-        skuMapper.deleteByIdList(skuIdList);
         stockMapper.deleteByIdList(skuIdList);
+        skuMapper.deleteByIdList(skuIdList);
+
     }
 
     @Override
@@ -118,6 +123,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         //新增sku
         this.saveSkuAndStockInfo(spuDTO,spuEntity.getId(),date);
 
+        mrRabbitMQ.send(spuDTO.getId()+"", MqMessageConstant.SPU_ROUT_KEY_UPDATE);
         return this.setResultSuccess();
     }
 
@@ -152,27 +158,35 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public Result<JSONObject> saveGoods(SpuDTO spuDTO) {
-        log.info("{}",spuDTO);
 
-        final  Date date = new Date();
-        //新增spu
+        Integer spuId = this.saveGoodsTransactional(spuDTO);
+        mrRabbitMQ.send(spuId + "", MqMessageConstant.SPU_ROUT_KEY_SAVE);
+        return this.setResultSuccess();
+    }
+
+    @Transactional
+    public Integer saveGoodsTransactional(SpuDTO spuDTO){
+        //final finally finalize()的区别????
+        final Date date = new Date();
+        //新增spu,新增返回主键, 给必要字段赋默认值
         SpuEntity spuEntity = BaiduBeanUtils.copyProperties(spuDTO, SpuEntity.class);
         spuEntity.setSaleable(1);
         spuEntity.setValid(1);
         spuEntity.setCreateTime(date);
         spuEntity.setLastUpdateTime(date);
         spuMapper.insertSelective(spuEntity);
-        //新增spudetail
+
+        //新增spuDetail
         SpuDetailDTO spuDetail = spuDTO.getSpuDetail();
         SpuDetailEntity spuDetailEntity = BaiduBeanUtils.copyProperties(spuDetail, SpuDetailEntity.class);
         spuDetailEntity.setSpuId(spuEntity.getId());
         spuDetailMapper.insertSelective(spuDetailEntity);
-        //新增sku
-        this.saveSkuAndStockInfo(spuDTO,spuEntity.getId(),date);
 
-        return this.setResultSuccess();
+        //新增sku list插入顺序有序 b,a set a,b treeSet b,a
+        this.saveSkuAndStockInfo(spuDTO,spuEntity.getId(),date);
+        return spuEntity.getId();
     }
 
     @Override
@@ -189,6 +203,8 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
             criteria.andEqualTo("saleable",spuDTO.getSaleable());
         if (!StringUtils.isEmpty(spuDTO.getTitle()))
             criteria.andLike("title","%"+spuDTO.getTitle()+"%");
+        if (ObjectUtil.isNotNull(spuDTO.getId()) && spuDTO.getId() > 0)
+            criteria.andEqualTo("id",spuDTO.getId());
 
         List<SpuEntity> spuEntities = spuMapper.selectByExample(example);
 

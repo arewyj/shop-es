@@ -10,6 +10,7 @@ import com.baidu.shop.mapper.BrandMapper;
 import com.baidu.shop.mapper.CategoryBrandMapper;
 import com.baidu.shop.service.BrandService;
 import com.baidu.shop.utils.BaiduBeanUtils;
+import com.baidu.shop.utils.ObjectUtil;
 import com.baidu.shop.utils.PinyinUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -35,10 +36,10 @@ import java.util.stream.Collectors;
 @RestController
 public class BrandServiceImpl extends BaseApiService implements BrandService {
 
-    @Resource
+    @Autowired
     private BrandMapper brandMapper;
 
-    @Autowired
+    @Resource
     private CategoryBrandMapper categoryBrandMapper;
 
     @Override
@@ -97,21 +98,24 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     @Override
     public Result<PageInfo<BrandeEntity>> getBrandInfo(BrandDTO brandDTO) {
 
+        if(ObjectUtil.isNotNull(brandDTO.getPage()) && ObjectUtil.isNotNull(brandDTO.getRows()))
+            PageHelper.startPage(brandDTO.getPage(),brandDTO.getRows());
         //当sort不为空的情况下
         if (!StringUtils.isEmpty(brandDTO.getSort())) {
             //SELECT * FROM 表名  ORDER BY id desc
             PageHelper.orderBy(brandDTO.getSort() + " " + (Boolean.valueOf(brandDTO.getOrder()) ? "desc" : "asc"));
         }
-
-        //分页
-        PageHelper.startPage(brandDTO.getPage(), brandDTO.getRows());
-
         //条件查询
         BrandeEntity brandeEntity = BaiduBeanUtils.copyProperties(brandDTO, BrandeEntity.class);
 
         //创建Example的实例
         Example example = new Example(BrandeEntity.class);
-        example.createCriteria().andLike("name", "%" + brandeEntity.getName() + "%");
+        Example.Criteria criteria = example.createCriteria();
+        if(!StringUtils.isEmpty(brandeEntity.getName()))
+            criteria.andLike("name", "%" + brandeEntity.getName() + "%");
+        if(ObjectUtil.isNotNull(brandDTO.getId()))
+            criteria.andEqualTo("id",brandDTO.getId());
+
         List<BrandeEntity> list = brandMapper.selectByExample(example);
 
         PageInfo<BrandeEntity> pageInfo = new PageInfo<>(list);

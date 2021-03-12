@@ -22,6 +22,8 @@ import com.baidu.shop.utils.HighlightUtil;
 import com.baidu.shop.utils.JSONUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregation;
@@ -38,6 +40,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,9 +69,28 @@ public class ShopElasticsearchServiceImpl extends BaseApiService implements Shop
     private BrandFeign brandFeign;
 
     @Override
-    public Result<List<GoodsDoc>>   search(String search,Integer page) {
+    public Result<JSONObject> saveData(Integer spuId) {
+        SpuDTO spuDTO = new SpuDTO();
+        spuDTO.setId(spuId);
+        List<GoodsDoc> goodsDocs = this.esGoodsInfo(spuDTO);
+        elasticsearchRestTemplate.save(goodsDocs.get(0));
+        return this.setResultSuccess();
+    }
 
-        SearchHits<GoodsDoc> searchHits = elasticsearchRestTemplate.search(this.getNativeSearchQueryBuilder(search,page).build(), GoodsDoc.class);
+    @Override
+    public Result<JSONObject> deleteData(Integer spuId) {
+        GoodsDoc goodsDoc = new GoodsDoc();
+        goodsDoc.setId(spuId.longValue());
+
+        elasticsearchRestTemplate.delete(goodsDoc);
+        return this.setResultSuccess();
+    }
+
+    @Override
+    public Result<List<GoodsDoc>>   search(String search,Integer page,String filter) {
+        //System.out.println(filter);
+
+        SearchHits<GoodsDoc> searchHits = elasticsearchRestTemplate.search(this.getNativeSearchQueryBuilder(search,page,filter).build(), GoodsDoc.class);
         
         List<GoodsDoc> highlightList = HighlightUtil.getHighlightList(searchHits.getSearchHits());
 
@@ -123,10 +145,30 @@ public class ShopElasticsearchServiceImpl extends BaseApiService implements Shop
     }
 
 
-    private NativeSearchQueryBuilder getNativeSearchQueryBuilder(String search,Integer page){
+    private NativeSearchQueryBuilder getNativeSearchQueryBuilder(String search,Integer page,String filter){
+
+        //System.out.println(filter);
+
         NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
         //多字段查询
         nativeSearchQueryBuilder.withQuery(QueryBuilders.multiMatchQuery(search,"title","brandName","categoryName"));
+
+        //搜索过滤
+        if (!StringUtils.isEmpty(filter) && filter.length() > 2){
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            Map<String, String> filterMap = JSONUtil.toMapValueString(filter);
+            filterMap.forEach((key,value) ->{
+                MatchQueryBuilder matchQueryBuilder = null;
+                if (key.equals("cid3") || key.equals("brandId")){
+                     matchQueryBuilder = QueryBuilders.matchQuery(key, value);
+                }else {
+                     matchQueryBuilder = QueryBuilders.matchQuery("specs." + key + ".keyword", value);
+                }
+                boolQueryBuilder.must(matchQueryBuilder);
+            });
+            nativeSearchQueryBuilder.withFilter(boolQueryBuilder);
+        }
+
         //设置分页
         nativeSearchQueryBuilder.withPageable(PageRequest.of(page-1,10));
         //过滤掉无用的数据
@@ -191,7 +233,7 @@ public class ShopElasticsearchServiceImpl extends BaseApiService implements Shop
             operations.create();
             operations.createMapping();
         }
-        List<GoodsDoc> goodsDocs = this.esGoodsInfo();
+        List<GoodsDoc> goodsDocs = this.esGoodsInfo(new SpuDTO());
         elasticsearchRestTemplate.save(goodsDocs);
         return this.setResultSuccess();
     }
@@ -206,85 +248,122 @@ public class ShopElasticsearchServiceImpl extends BaseApiService implements Shop
     }
 
    // @Override
-    public List<GoodsDoc> esGoodsInfo() {
-        SpuDTO spuDTO = new SpuDTO();
-        //spuDTO.setPage(1);
-        //spuDTO.setRows(5);
-        Result<List<SpuDTO>> spuInfo = goodsFeign.getSpuInfo(spuDTO);
-        if (spuInfo.isSuccess()){
-            List<SpuDTO> spuList = spuInfo.getData();
-            List<GoodsDoc> goodsDocList = spuList.stream().map(spu -> {
+   private List<GoodsDoc> esGoodsInfo(SpuDTO spuDTO) {
+       //SpuDTO spuDTO = new SpuDTO();
+        /*spuDTO.setPage(1);
+        spuDTO.setRows(5);*/
 
-                //spu数据
-                GoodsDoc goodsDoc = new GoodsDoc();
+       Result<List<SpuDTO>> spuInfo = goodsFeign.getSpuInfo(spuDTO);
+       if(spuInfo.isSuccess()){
+           List<SpuDTO> spuList = spuInfo.getData();
+           List<GoodsDoc> goodsDocList = spuList.stream().map(spu -> {
+               //spu
+               GoodsDoc goodsDoc = new GoodsDoc();
+               goodsDoc.setId(spu.getId().longValue());
+               goodsDoc.setTitle(spu.getTitle());
+               goodsDoc.setBrandName(spu.getBrandName());
+               goodsDoc.setCategoryName(spu.getCategoryName());
+               goodsDoc.setSubTitle(spu.getSubTitle());
+               goodsDoc.setBrandId(spu.getBrandId().longValue());
+               goodsDoc.setCid1(spu.getCid1().longValue());
+               goodsDoc.setCid2(spu.getCid2().longValue());
+               goodsDoc.setCid3(spu.getCid3().longValue());
+               goodsDoc.setCreateTime(spu.getCreateTime());
+               //sku数据 , 通过spuid查询skus
+               Map<List<Long>, List<Map<String, Object>>> skusAndPriceMap = this.getSkusAndPriceList(spu.getId());
+               skusAndPriceMap.forEach((key,value) -> {
+                   goodsDoc.setPrice(key);
+                   goodsDoc.setSkus(JSONUtil.toJsonString(value));
+               });
+               //设置规格参数
+               Map<String, Object> specMap = this.getSpecMap(spu);
+               goodsDoc.setSpecs(specMap);
+               return goodsDoc;
+           }).collect(Collectors.toList());
 
-                goodsDoc.setId(spu.getId().longValue());
-                goodsDoc.setTitle(spu.getTitle());
-                goodsDoc.setBrandName(spu.getBrandName());
-                goodsDoc.setCategoryName(spu.getCategoryName());
-                goodsDoc.setSubTitle(spu.getSubTitle());
-                goodsDoc.setBrandId(spu.getBrandId().longValue());
-                goodsDoc.setCid1(spu.getCid1().longValue());
-                goodsDoc.setCid2(spu.getCid2().longValue());
-                goodsDoc.setCid3(spu.getCid3().longValue());
-                goodsDoc.setCreateTime(spu.getCreateTime());
+           return goodsDocList;
+       }
+       return null;
+   }
 
-                //sku数据  根据spuId查询sku数据
-                Result<List<SkuDTO>> skusByspuId = goodsFeign.getSkusByspuId(spu.getId());
-                if (skusByspuId.isSuccess()){
-                    List<SkuDTO> skuList = skusByspuId.getData();
-                    List<Long> priceList = new ArrayList<>();
+    //获取规格参数map
+    private Map<String, Object> getSpecMap(SpuDTO spu){
+        SpecParamDTO specParamDTO = new SpecParamDTO();
+        specParamDTO.setCid(spu.getCid3());
+        specParamDTO.setSearching(true);
+        Result<List<SpecParamEntity>> specParamInfo = specificationFeign.getSpecParamInfo(specParamDTO);
+        if(specParamInfo.isSuccess()){
 
-                    List<Map<String, Object>> skuMapList = skuList.stream().map(sku -> {
-                        //id,title,images,price
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("id", sku.getId());
-                        map.put("title", sku.getTitle());
-                        map.put("image", sku.getImages());
-                        map.put("price", sku.getPrice());
+            List<SpecParamEntity> specParamList = specParamInfo.getData();
+            Result<SpuDetailEntity> spuDetailInfo = goodsFeign.getSpuDetailByspuId(spu.getId());
+            if(spuDetailInfo.isSuccess()){
 
-                        priceList.add(sku.getPrice().longValue());
-                        return map;
-                    }).collect(Collectors.toList());
-
-                    goodsDoc.setPrice(priceList);
-                    goodsDoc.setSkus(JSONUtil.toJsonString(skuMapList));
-                }
-                //通过cid3查询规格参数
-                SpecParamDTO specParamDTO = new SpecParamDTO();
-                specParamDTO.setCid(spu.getCid3());
-                specParamDTO.setSearching(true);
-                Result<List<SpecParamEntity>> specParamInfo = specificationFeign.getSpecParamInfo(specParamDTO);
-                if (specParamInfo.isSuccess()){
-                    List<SpecParamEntity> specParamList = specParamInfo.getData();
-                    Result<SpuDetailEntity> spuDetailByspuId = goodsFeign.getSpuDetailByspuId(spu.getId());
-                    if (spuDetailByspuId.isSuccess()){
-                        SpuDetailEntity spuDetailEntity = spuDetailByspuId.getData();
-                        //将json字符串转换为map集合
-                        Map<String, String> genericSpec = JSONUtil.toMapValueString(spuDetailEntity.getGenericSpec());
-                        Map<String, List<String>> specialSpec = JSONUtil.toMapValueStrList(spuDetailEntity.getSpecialSpec());
-
-                        Map<String, Object> specMap  = new HashMap<>();
-                        specParamList.stream().forEach(specParamEntity -> {
-                                if (specParamEntity.getGeneric()){
-                                    if (specParamEntity.getNumeric() && !StringUtils.isEmpty(specParamEntity.getSegments())){
-                                        specMap.put(specParamEntity.getName(),chooseSegment(genericSpec.get(specParamEntity.getId()+""),specParamEntity.getSegments(),specParamEntity.getUnit()));
-                                    }else {
-                                        specMap.put(specParamEntity.getName(),genericSpec.get(specParamEntity.getId()+""));
-                                    }
-                                }else {
-                                    specMap.put(specParamEntity.getName(),specialSpec.get(specParamEntity.getId()+""));
-                                }
-                        });
-                        goodsDoc.setSpecs(specMap);
-                    }
-                }
-                return  goodsDoc;
-            }).collect(Collectors.toList());
-            //System.out.println(goodsDocList);
-            return goodsDocList;
+                SpuDetailEntity spuDetailEntity = spuDetailInfo.getData();
+                Map<String, Object> specMap = this.getSpecMap(specParamList, spuDetailEntity);
+                return specMap;
+            }
         }
+
         return null;
+    }
+
+    private Map<String,Object> getSpecMap(List<SpecParamEntity> specParamList ,SpuDetailEntity spuDetailEntity){
+
+        Map<String, Object> specMap = new HashMap<>();
+        //将json字符串转换成map集合
+        Map<String, String> genericSpec = JSONUtil.toMapValueString(spuDetailEntity.getGenericSpec());
+        Map<String, List<String>> specialSpec = JSONUtil.toMapValueStrList(spuDetailEntity.getSpecialSpec());
+
+        //需要查询两张表的数据 spec_param(规格参数名) spu_detail(规格参数值) --> 规格参数名 : 规格参数值
+        specParamList.stream().forEach(specParam -> {
+
+            if (specParam.getGeneric()) {//判断从那个map集合中获取数据
+                if(specParam.getNumeric() && !StringUtils.isEmpty(specParam.getSegments())){
+
+                    specMap.put(specParam.getName()
+                            , chooseSegment(genericSpec.get(specParam.getId() + ""), specParam.getSegments(), specParam.getUnit()));
+                }else{
+
+                    specMap.put(specParam.getName(),genericSpec.get(specParam.getId() + ""));
+                }
+
+            }else{
+
+                specMap.put(specParam.getName(),specialSpec.get(specParam.getId() + ""));
+            }
+
+        });
+
+        return specMap;
+    }
+
+    private Map<List<Long>, List<Map<String, Object>>> getSkusAndPriceList(Integer spuId){
+        //List Set Map Entity
+
+        Map<List<Long>, List<Map<String, Object>>> hashMap = new HashMap<>();
+        Result<List<SkuDTO>> skusInfo = goodsFeign.getSkusByspuId(spuId);
+        if (skusInfo.isSuccess()) {
+            List<SkuDTO> skuList = skusInfo.getData();
+            List<Long> priceList = new ArrayList<>();//一个spu的所有商品价格集合
+
+            List<Map<String, Object>> skuMapList = skuList.stream().map(sku -> {
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", sku.getId());
+                map.put("title", sku.getTitle());
+                map.put("image", sku.getImages());
+                map.put("price", sku.getPrice());
+
+                priceList.add(sku.getPrice().longValue());
+                //id ,title ,image,price
+                return map;
+            }).collect(Collectors.toList());
+
+            hashMap.put(priceList,skuMapList);
+            /*goodsDoc.setPrice(priceList);
+            goodsDoc.setSkus(JSONUtil.toJsonString(skuMapList));*/
+        }
+        return hashMap;
     }
 
 

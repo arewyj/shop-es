@@ -63,10 +63,13 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
         SpecParamEntity specParamEntity = BaiduBeanUtils.copyProperties(specParamDTO, SpecParamEntity.class);
         Example example = new Example(SpecParamEntity.class);
         Example.Criteria criteria = example.createCriteria();
+
         if (ObjectUtil.isNotNull(specParamEntity.getGroupId()))
             criteria.andEqualTo("groupId",specParamEntity.getGroupId());
         if (ObjectUtil.isNotNull(specParamEntity.getCid()))
             criteria.andEqualTo("cid",specParamEntity.getCid());
+        if (ObjectUtil.isNotNull(specParamEntity.getGeneric()))
+            criteria.andEqualTo("generic",specParamEntity.getGeneric());
 
         List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
         return this.setResultSuccess(specParamEntities);

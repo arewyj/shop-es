@@ -22,6 +22,7 @@
         <module>mingrui-shop-service-order</module>
         <module>mingrui-shop-service-pay</module>
     </modules>
+
     <dependencies>
         <!-- SpringBoot-整合Web组件 -->
         <dependency>

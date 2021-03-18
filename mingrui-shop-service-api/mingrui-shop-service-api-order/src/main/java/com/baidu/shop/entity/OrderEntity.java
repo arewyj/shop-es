@@ -16,6 +16,7 @@ import java.util.Date;
 @Data
 @Table(name = "tb_order")
 public class OrderEntity {
+
     @Id
     private Long orderId;//订单id
 

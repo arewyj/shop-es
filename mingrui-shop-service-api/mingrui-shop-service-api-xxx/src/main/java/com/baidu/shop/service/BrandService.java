@@ -18,6 +18,7 @@ import java.util.List;
 @Api(tags = "品牌接口")
 public interface BrandService {
 
+
     @ApiOperation(value = "获取品牌信息")
     @GetMapping(value = "/brand/list")
     Result<PageInfo<BrandeEntity>>  getBrandInfo(@SpringQueryMap BrandDTO brandDTO);

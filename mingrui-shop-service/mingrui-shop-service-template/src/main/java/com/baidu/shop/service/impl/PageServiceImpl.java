@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  **/
 //@Service
 public class PageServiceImpl implements PageService {
+
     //@Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 

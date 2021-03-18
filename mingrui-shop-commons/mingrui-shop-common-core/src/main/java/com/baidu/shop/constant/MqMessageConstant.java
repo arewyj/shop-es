@@ -8,6 +8,7 @@ package com.baidu.shop.constant;
  * @Version V1.0
  **/
 public class MqMessageConstant {
+
     //spu交换机，routingkey
     public static final String SPU_ROUT_KEY_SAVE="spu.save";
     public static final String SPU_ROUT_KEY_UPDATE="spu.update";

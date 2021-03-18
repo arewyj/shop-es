@@ -19,6 +19,7 @@ import java.security.PublicKey;
 @Data
 @Configuration
 public class JwtConfig {
+
     @Value("${mrshop.jwt.pubKeyPath}")
     private String pubKeyPath;// 公钥
 

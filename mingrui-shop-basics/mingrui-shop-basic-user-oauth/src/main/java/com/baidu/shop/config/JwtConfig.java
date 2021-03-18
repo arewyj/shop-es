@@ -22,6 +22,7 @@ import java.security.PublicKey;
 @Configuration
 @Data
 public class JwtConfig {
+
     @Value("${mrshop.jwt.secret}")
     private String secret; // 密钥
     @Value("${mrshop.jwt.pubKeyPath}")

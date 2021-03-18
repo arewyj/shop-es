@@ -12,4 +12,5 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
  * @Version V1.0
  **/
 public interface OrderDetailMapper extends Mapper<OrderDetailEntity>, InsertListMapper<OrderDetailEntity> {
+
 }

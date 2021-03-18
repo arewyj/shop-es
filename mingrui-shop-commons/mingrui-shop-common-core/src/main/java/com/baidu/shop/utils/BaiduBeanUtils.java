@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
  * @Version V1.0
  **/
 public class BaiduBeanUtils<T> {
+
     public static  <T> T copyProperties(Object obj, Class<T> clazz){
 
         try {

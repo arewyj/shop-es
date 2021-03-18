@@ -17,6 +17,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableEurekaClient
 @MapperScan(value = "com.baidu.shop.mapper")
 public class RunUserServerApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(RunUserServerApplication.class);
     }

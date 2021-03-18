@@ -18,6 +18,7 @@ import java.util.Date;
 @Table(name = "tb_sku")
 @Data
 public class SkuEntity {
+
     /*CREATE TABLE `tb_sku` (
             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'sku id',
             `spu_id` bigint(20) NOT NULL COMMENT 'spu id',

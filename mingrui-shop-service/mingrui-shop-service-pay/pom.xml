@@ -18,6 +18,7 @@
             <artifactId>alipay-sdk-java</artifactId>
             <version>4.9.5.ALL</version>
         </dependency>
+
         <dependency>
             <groupId>com.baidu</groupId>
             <artifactId>mingrui-shop-service-api-pay</artifactId>

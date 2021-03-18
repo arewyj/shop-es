@@ -12,4 +12,5 @@ import com.baidu.shop.entity.UserEntity;
  **/
 public interface UserOauthService {
     String login(UserEntity userEntity, JwtConfig jwtConfig);
+
 }

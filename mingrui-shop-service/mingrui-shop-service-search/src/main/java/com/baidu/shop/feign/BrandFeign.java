@@ -12,4 +12,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  **/
 @FeignClient(value = "xxx-server",contextId = "brandFeign")
 public interface BrandFeign extends BrandService {
+
 }

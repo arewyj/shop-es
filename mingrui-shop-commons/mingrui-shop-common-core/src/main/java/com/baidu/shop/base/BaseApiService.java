@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class BaseApiService<T>{
+
     public Result<T> setResultError(Integer code, String msg) {
         return setResult(code, msg, null);
     }

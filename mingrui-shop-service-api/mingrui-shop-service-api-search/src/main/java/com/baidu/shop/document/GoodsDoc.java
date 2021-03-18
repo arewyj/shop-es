@@ -21,6 +21,7 @@ import java.util.Map;
 @Data
 public class GoodsDoc {
 
+
     @Id
     private Long id;
 

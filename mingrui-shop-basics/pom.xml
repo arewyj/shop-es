@@ -19,6 +19,7 @@
         <module>mingrui-shop-basic-upload-server</module>
         <module>mingrui-shop-basic-user-oauth</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

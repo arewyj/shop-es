@@ -19,6 +19,7 @@ import java.util.List;
 @Api(tags = "商品接口")
 public interface GoodsService {
 
+
     @ApiOperation(value = "获取商品信息")
     @GetMapping(value = "goods/getSpuInfo")
     Result<List<SpuDTO>>  getSpuInfo(@SpringQueryMap SpuDTO spuDTO);

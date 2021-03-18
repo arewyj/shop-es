@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  * @Version V1.0
  **/
 public class PinyinUtil {
+
     public static final Boolean TO_FUUL_PINYIN = true;
 
     public static final Boolean TO_FIRST_CHAR_PINYIN = false;

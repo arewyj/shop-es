@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 @RestController
 public class TemplateServiceImpl extends BaseApiService implements TemplateService {
 
+
     private final Integer CREATE_STATIC_HTML = 1;
     private final Integer DELETE_STATIC_HTML = 2;
 

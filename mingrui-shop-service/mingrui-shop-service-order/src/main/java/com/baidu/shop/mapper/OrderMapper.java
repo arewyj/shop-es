@@ -11,4 +11,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @Version V1.0
  **/
 public interface OrderMapper extends Mapper<OrderEntity> {
+
 }

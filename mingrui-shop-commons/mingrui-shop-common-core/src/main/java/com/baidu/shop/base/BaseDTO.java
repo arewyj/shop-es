@@ -15,6 +15,7 @@ import lombok.Data;
 @ApiModel(value = "BaseDTO用于数据传输,其他dto继承此类")
 public class BaseDTO {
 
+
     @ApiModelProperty(value = "当前页", example = "1")
     private Integer page;
 

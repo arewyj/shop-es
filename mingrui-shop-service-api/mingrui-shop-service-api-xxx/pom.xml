@@ -18,6 +18,7 @@
         <artifactId>springfox-swagger2</artifactId>
         <version>2.9.2</version>
     </dependency>
+
     <!--提供可视化的API文档-->
     <dependency>
         <groupId>io.springfox</groupId>

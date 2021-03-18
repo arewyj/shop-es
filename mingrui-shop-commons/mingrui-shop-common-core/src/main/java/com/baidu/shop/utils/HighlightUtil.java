@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  **/
 public class HighlightUtil {
 
+
     public static HighlightBuilder getHighlightBuilder(String ...field){
         HighlightBuilder highlightBuilder = new HighlightBuilder();
 

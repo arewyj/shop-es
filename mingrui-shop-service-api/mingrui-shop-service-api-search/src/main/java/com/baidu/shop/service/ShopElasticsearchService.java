@@ -23,6 +23,7 @@ import java.util.List;
 @Api(tags = "es接口")
 public interface ShopElasticsearchService {
 
+
 //    @ApiOperation(value = "获取商品信息测试")
 //    @GetMapping(value ="es/goodsInfo")
 //    Result<JSONObject> esGoodsInfo();

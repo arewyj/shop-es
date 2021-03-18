@@ -16,6 +16,7 @@ import java.util.Date;
 @Table(name = "tb_order_status")
 @Data
 public class OrderStatusEntity {
+
     @Id
     private Long orderId;
 

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "tb_stock")
 @Data
 public class StockEntity {
+
     /*CREATE TABLE `tb_stock` (
             `sku_id` bigint(20) NOT NULL COMMENT '库存对应的商品sku id',
             `seckill_stock` int(9) DEFAULT '0' COMMENT '可秒杀库存',

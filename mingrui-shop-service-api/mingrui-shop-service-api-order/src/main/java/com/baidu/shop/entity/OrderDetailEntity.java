@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Data
 public class OrderDetailEntity {
 
+
     @Id
     private Long id;//订单详情id
 

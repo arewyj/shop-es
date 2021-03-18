@@ -17,6 +17,7 @@ import java.util.List;
 
 @Api("规格接口")
 public interface SpecificationService {
+
     @ApiOperation("通过条件查询规则数据")
     @GetMapping("specgroup/getSpecGroupInfo")
     Result<List<SpecGroupEntity>> getSpecGroupInfo(@SpringQueryMap SpecGroupDTO specGroupDTO);

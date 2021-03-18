@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Result<T> {
+
     private Integer code;//返回码
 
     private String message;//返回消息

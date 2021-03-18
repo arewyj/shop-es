@@ -19,6 +19,7 @@ import java.util.Date;
 @ApiModel(value = "sku数据传输类")
 @Data
 public class SkuDTO {
+
     @ApiModelProperty(value = "sku主键",example = "1")
     @NotNull(message = "sku主键不能为空", groups = {MingruiOperation.Update.class})
     private Long id;

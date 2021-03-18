@@ -8,6 +8,7 @@ package com.baidu.shop.validate.group;
  * @Version V1.0
  **/
 public class MingruiOperation {
+
     public interface  Add{};
     public interface Update{};
 }

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "tb_spu_detail")
 @Data
 public class SpuDetailEntity {
+
   /*  CREATE TABLE `tb_spu_detail` (
             `spu_id` bigint(20) NOT NULL,
             `description` text COMMENT '商品描述信息',

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "order-server")
 public interface OrderFeign {
 
+
     @ApiOperation(value = "通过orderId查询订单信息")
     @GetMapping(value = "order/getOrderInfoByOrderId")
     Result<OrderInfo> getOrderInfoByOrderId(@RequestParam Long orderId);

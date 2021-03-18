@@ -16,6 +16,7 @@ import java.util.List;
  **/
 public interface BrandMapper extends Mapper<BrandeEntity>, SelectByIdListMapper<BrandeEntity,Integer> {
 
+
     @Select(value = "SELECT b.* FROM tb_brand b WHERE b.id in (SELECT brand_id FROM tb_category_brand cb where cb.category_id = #{cid})")
     List<BrandeEntity> getBrandByCategoryId(Integer cid);
 }

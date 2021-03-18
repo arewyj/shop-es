@@ -25,6 +25,7 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class GoodsListener {
+
     @Autowired
     private ShopElasticsearchService shopElasticsearchService;
 

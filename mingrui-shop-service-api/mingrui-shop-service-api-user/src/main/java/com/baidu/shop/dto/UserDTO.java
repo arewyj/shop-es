@@ -17,6 +17,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "用户DTO")
 public class UserDTO {
+
     @ApiModelProperty(value = "用户主键",example = "1")
     @NotNull(message = "主键不能为空", groups = {MingruiOperation.Update.class})
     private Integer id;

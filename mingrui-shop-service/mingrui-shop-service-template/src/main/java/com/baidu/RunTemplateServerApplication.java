@@ -17,6 +17,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableEurekaClient
 public class RunTemplateServerApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(RunTemplateServerApplication.class);
     }

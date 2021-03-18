@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  **/
 @Api(tags = "模板接口")
 public interface TemplateService {
+
     @ApiOperation(value = "通过spuId创建html文件")
     @GetMapping(value = "template/createStaticHTMLTemplate")
     Result<JSONObject> createStaticHTMLTemplate(Integer spuId);

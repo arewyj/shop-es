@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @Component
 public class LoginFilter extends ZuulFilter {
+
     @Resource
     private JwtConfig jwtConfig;
 

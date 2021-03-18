@@ -12,4 +12,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  **/
 @FeignClient(value = "xxx-server",contextId = "GoodsFeign")
 public interface GoodsFeign extends GoodsService {
+
 }

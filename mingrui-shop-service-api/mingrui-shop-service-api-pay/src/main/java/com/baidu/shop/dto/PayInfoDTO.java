@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "支付数据传输")
 @Data
 public class PayInfoDTO {
+
     @ApiModelProperty(value = "订单编号", example = "1")
     @NotNull(message = "订单编号不能为空")
     private Long orderId;

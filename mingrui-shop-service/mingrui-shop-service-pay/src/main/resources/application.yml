@@ -5,6 +5,7 @@ spring:
   application:
     name: pay-server
 
+
 #日志设置
 logging:
   level:

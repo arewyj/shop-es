@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 public class StockDTO {
 
+
     @ApiModelProperty(value = "sku主键",example = "1")
     private Long skuId;
 

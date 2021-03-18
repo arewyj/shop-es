@@ -53,6 +53,7 @@ import java.util.stream.Collectors;
  **/
 @RestController
 public class ShopElasticsearchServiceImpl extends BaseApiService implements ShopElasticsearchService {
+
     @Autowired
     private GoodsFeign goodsFeign;
 

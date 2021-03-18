@@ -19,6 +19,7 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class MrRabbitMQ implements RabbitTemplate.ConfirmCallback,RabbitTemplate.ReturnCallback {
+
     private RabbitTemplate rabbitTemplate;
 
     //构造方法注入

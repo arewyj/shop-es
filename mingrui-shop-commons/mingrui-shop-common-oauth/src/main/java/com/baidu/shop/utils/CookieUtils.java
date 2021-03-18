@@ -22,6 +22,7 @@ import java.net.URLDecoder;
  * @Version V1.0
  **/
 public class CookieUtils {
+
     protected static final Logger logger = LoggerFactory.getLogger(CookieUtils.class);
 
 

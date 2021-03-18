@@ -37,7 +37,6 @@ import java.util.Map;
 @Controller
 public class PayServiceImpl  extends BaseApiService implements PayService {
 
-
     @Autowired
     private JwtConfig jwtConfig;
 

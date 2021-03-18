@@ -18,6 +18,7 @@ import java.util.Date;
 @Table(name = "tb_spu")
 @Data
 public class SpuEntity {
+
              /*CREATE TABLE `tb_spu` (
             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'spu id',
             `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',

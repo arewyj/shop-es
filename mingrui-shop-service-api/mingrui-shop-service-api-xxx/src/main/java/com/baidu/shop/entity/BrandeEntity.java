@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @ApiModel(value = "品牌实体类")
 @Table(name = "tb_brand")
 public class BrandeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

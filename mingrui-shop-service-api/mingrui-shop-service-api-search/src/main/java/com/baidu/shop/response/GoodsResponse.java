@@ -21,6 +21,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 public class GoodsResponse extends Result<List<GoodsDoc>> {
+
     private Long total;
 
     private Long totalPage;

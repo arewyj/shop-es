@@ -27,6 +27,7 @@
         <!--spring cloud 版本.注意此版本是建立在boot2.2.2版本上的-->
         <mr.spring.cloud.version>Hoxton.SR1</mr.spring.cloud.version>
     </properties>
+
     <!--boot 版本-->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -35,6 +36,7 @@
         <!--始终从仓库中获取，不从本地路径获取-->
         <relativePath/>
     </parent>
+
     <dependencies>
         <!-- 集成commons工具类 -->
         <dependency>

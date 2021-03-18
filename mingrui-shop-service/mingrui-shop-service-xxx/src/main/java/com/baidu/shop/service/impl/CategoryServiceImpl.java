@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
  **/
 @RestController
 public class CategoryServiceImpl extends BaseApiService implements CategoryService {
+
     @Autowired
     private CategoryMapper categoryMapper;
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 public  interface PayService {
 
+
     @GetMapping(value = "pay/requestPay")//请求支付
     void requestPay(PayInfoDTO payInfoDTO, @CookieValue(value = "MRSHOP_TOKEN") String token, HttpServletResponse response);
 

@@ -3,6 +3,7 @@ server:
 spring:
   application:
     name: upload-server
+
 eureka:
   client:
     service-url:

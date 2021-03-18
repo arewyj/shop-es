@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisRepository {
 
+
     //--注意：此处不能使用Resource注解，因为在RedisConfig line:30行中使用@Bean注解，方法的返回值是RedisTemplate @Resource默认按名称自动注入，会与我们定义的redisTemplate冲突
     @Autowired
     private StringRedisTemplate redisTemplate;

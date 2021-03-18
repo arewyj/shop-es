@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class GlobalException {
+
     @ExceptionHandler(value = RuntimeException.class)
     public Result<JSONObject> testException(RuntimeException e){
 

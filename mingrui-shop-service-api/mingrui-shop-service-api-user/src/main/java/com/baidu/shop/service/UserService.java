@@ -20,6 +20,7 @@ import java.util.List;
  **/
 @Api(tags = "用户接口")
 public interface UserService {
+
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "user/register")
     Result<JSONObject> register(@RequestBody UserDTO userDTO);

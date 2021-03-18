@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Version V1.0
  **/
 public class ObjectUtils {
+
     public static String toString(Object obj) {
         if (obj == null) {
             return null;

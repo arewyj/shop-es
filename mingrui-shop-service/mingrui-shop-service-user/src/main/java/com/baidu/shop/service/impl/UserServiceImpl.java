@@ -30,6 +30,7 @@ import java.util.List;
 @RestController
 @Slf4j
 public class UserServiceImpl extends BaseApiService implements UserService {
+
     @Resource
     private UserMapper userMapper;
 

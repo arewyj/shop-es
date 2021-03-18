@@ -29,6 +29,7 @@ import java.io.InputStream;
 @Slf4j
 public class FastDFSUploadController {
 
+
     //图片服务器的地址
     @Value(value = "${mingrui.upload.img.host}")
     private String imgHost;

@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
+
     @Resource
     private SpuMapper spuMapper;
 

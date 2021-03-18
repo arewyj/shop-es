@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @ApiModel(value = "购物车数据")
 public class Car {
+
     @ApiModelProperty(value = "用户ID",example = "1")
     private Integer userId;
 

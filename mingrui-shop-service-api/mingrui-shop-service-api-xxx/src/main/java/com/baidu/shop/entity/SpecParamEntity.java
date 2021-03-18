@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "tb_spec_param")
 @Data
 public class SpecParamEntity {
+
            /* `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
             `cid` bigint(20) NOT NULL COMMENT '商品分类id',
             `group_id` bigint(20) NOT NULL,

@@ -18,6 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 @EnableFeignClients
 public class RunSearchServerApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(RunSearchServerApplication.class);
     }

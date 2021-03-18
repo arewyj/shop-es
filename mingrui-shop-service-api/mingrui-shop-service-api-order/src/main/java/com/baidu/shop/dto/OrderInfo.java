@@ -16,6 +16,7 @@ import java.util.List;
  **/
 @Data
 public class OrderInfo {
+
     private Long orderId;//订单id
 
     private Long totalPay;//总金额,单位为分

@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "oauth")
 public class UserOauthController extends BaseApiService {
+
     @Autowired
     private UserOauthService userOauthService;
 

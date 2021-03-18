@@ -28,6 +28,7 @@ import java.util.Map;
  * @Version V1.0
  **/
 public class JSONUtil {
+
     public static Map<String, String> toMapValueString(String json) {
         Map<String, String> map = gson.fromJson(json, new TypeToken<Map<String,
                 String>>() {

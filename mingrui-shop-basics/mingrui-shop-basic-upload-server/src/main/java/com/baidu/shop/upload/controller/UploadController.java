@@ -25,6 +25,7 @@ import java.util.UUID;
 @RequestMapping(value = "upload")
 public class UploadController extends BaseApiService {
 
+
     //window系统的上传目录
     //@Value(value = "${mingrui.upload.path.windows}")
     private String windowsPath;

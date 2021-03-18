@@ -24,6 +24,7 @@ import java.util.List;
  **/
 @Service
 public class UserOauthServiceImpl implements UserOauthService {
+
     @Resource
     private UserOauthMapper userOauthMapper;
 

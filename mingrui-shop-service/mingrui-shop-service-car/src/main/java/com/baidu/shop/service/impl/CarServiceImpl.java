@@ -35,6 +35,7 @@ import java.util.Map;
 @RestController(value = "car")
 @Slf4j
 public class CarServiceImpl extends BaseApiService implements CarService {
+
     private final String GOODS_CAR_PRE = "goods-car-";
     private final Integer CAR_KEY_INCREMENT = 1;
 

@@ -22,6 +22,7 @@ import java.util.List;
 @Data
 public class SpecGroupDTO extends BaseDTO {
 
+
     @ApiModelProperty(value = "主键",example = "1")
     @NotNull(message = "主键不能为空",groups = {MingruiOperation.Update.class})
     private Integer id;

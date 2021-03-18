@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class IdWorkerConfig {
 
+
     @Value(value = "${mrshop.worker.workerId}")
     private long workerId;// 当前机器id
 

@@ -28,6 +28,7 @@ import java.util.List;
  **/
 @RestController
 public class SpecificationServiceImpl extends BaseApiService implements SpecificationService {
+
     @Resource
     private SpecGroupMapper specGroupMapper;
 

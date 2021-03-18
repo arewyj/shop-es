@@ -5,4 +5,5 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "xxx-server",contextId = "SpecificationFeign")
 public interface SpecificationFeign extends SpecificationService {
+
 }

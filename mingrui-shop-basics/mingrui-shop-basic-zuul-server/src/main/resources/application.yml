@@ -54,6 +54,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
 mrshop:
   #声明不进行拦截的请求用,分隔
   filter:

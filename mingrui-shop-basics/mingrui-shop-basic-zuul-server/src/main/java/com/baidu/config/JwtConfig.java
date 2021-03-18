@@ -21,6 +21,7 @@ import java.util.List;
 @Data
 @Configuration
 public class JwtConfig {
+
     @Value("${mrshop.jwt.pubKeyPath}")
     private String pubKeyPath;// 公钥地址
 

@@ -11,6 +11,7 @@
 
     <artifactId>mingrui-shop-common-core</artifactId>
 
+
     <dependencies>
         <!--处理json与各种数据类型或文档类型的转换-->
         <dependency>

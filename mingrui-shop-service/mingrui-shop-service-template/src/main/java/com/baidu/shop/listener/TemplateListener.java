@@ -18,6 +18,7 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class TemplateListener {
+
     @Autowired
     private TemplateService templateService;
 

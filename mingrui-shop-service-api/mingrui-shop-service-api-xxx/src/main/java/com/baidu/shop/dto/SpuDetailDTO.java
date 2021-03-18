@@ -14,6 +14,7 @@ import lombok.Data;
 @ApiModel(value = "spu大字段数据传输类")
 @Data
 public class SpuDetailDTO {
+
     @ApiModelProperty(value = "商品Id",example = "1")
     private Integer spuId;
 

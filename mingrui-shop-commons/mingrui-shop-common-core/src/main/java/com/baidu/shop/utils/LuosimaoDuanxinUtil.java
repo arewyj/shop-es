@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
  **/
 @Slf4j
 public class LuosimaoDuanxinUtil {
+
     //短信平台的APIkey
     private static final String DUANXIN_API_KEY = "key-5d134b6b4859b301f5ef65fb94caca81";//需要使用自己的APIkey
     private static final String SPEAK_API_KEY = "key-8c6d42c99e57d787d9602ecca06858a0";//需要使用自己的APIkey

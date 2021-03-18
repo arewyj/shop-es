@@ -31,6 +31,7 @@ import java.time.Duration;
  **/
 @Configuration
 public class RedisConfig {
+
     @Bean
     @Primary
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {

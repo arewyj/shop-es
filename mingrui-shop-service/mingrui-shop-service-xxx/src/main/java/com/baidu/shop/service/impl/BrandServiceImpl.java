@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 @RestController
 public class BrandServiceImpl extends BaseApiService implements BrandService {
 
+
     @Autowired
     private BrandMapper brandMapper;
 

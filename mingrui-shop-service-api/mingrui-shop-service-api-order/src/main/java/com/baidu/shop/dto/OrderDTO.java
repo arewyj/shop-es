@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @ApiModel(value = "订单数据传输")
 public class OrderDTO {
+
     @ApiModelProperty(value = "收货地址id" ,example = "1")
     @NotNull(message = "收货地址不能为空", groups = {MingruiOperation.Update.class})
     private Integer addrId;

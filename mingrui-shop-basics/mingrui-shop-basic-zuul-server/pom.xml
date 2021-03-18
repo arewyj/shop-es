@@ -12,6 +12,7 @@
     <artifactId>mingrui-shop-basic-zuul-server</artifactId>
 
     <dependencies>
+
         <!-- zuul -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

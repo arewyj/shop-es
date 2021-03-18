@@ -6,10 +6,7 @@ import com.baidu.shop.dto.UserDTO;
 import com.baidu.shop.entity.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ import java.util.List;
 /**
  * @ClassName UserService
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/10
  * @Version V1.0
  **/
@@ -38,4 +35,6 @@ public interface UserService {
     @ApiOperation(value = "校验手机验证码")
     @GetMapping(value = "user/checkCode")
     Result<JSONObject> checkCode(String phone,String code);
+
+
 }

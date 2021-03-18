@@ -15,12 +15,12 @@ fdfs:
     width: 60
     height: 60
   tracker-list: # tracker地址
-    - 81.70.213.75:22122
+    - 81.70.218.233:22122
 
 mingrui:
   upload:
     path:
-      windows: E:\\images
-      linux: /yyq/images
+      windows: D:\\images
+      linux: /wang/images
     img:
-      host: http://81.70.213.75/
+      host: http://81.70.218.233/

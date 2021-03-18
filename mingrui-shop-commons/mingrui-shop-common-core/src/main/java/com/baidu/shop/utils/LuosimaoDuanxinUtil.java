@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @ClassName LuosimaoDuanxinUtil
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/11
  * @Version V1.0
  **/

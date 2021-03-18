@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * @ClassName BaseApiService
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2020/12/22
  * @Version V1.0
  **/

@@ -3,7 +3,7 @@ package com.baidu.shop.constant;
 /**
  * @ClassName MrConstants
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/11
  * @Version V1.0
  **/

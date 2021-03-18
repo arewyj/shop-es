@@ -9,7 +9,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 /**
  * @ClassName RunUserServerApplication
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/10
  * @Version V1.0
  **/

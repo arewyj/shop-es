@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * @ClassName GoodsServiceImpl
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/1/5
  * @Version V1.0
  **/
@@ -59,6 +59,12 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
     @Resource
     private MrRabbitMQ mrRabbitMQ;
+
+    @Override
+    public Result<SkuEntity> getSkuById(Long skuId) {
+        SkuEntity skuEntity = skuMapper.selectByPrimaryKey(skuId);
+        return this.setResultSuccess(skuEntity);
+    }
 
     @Override
     @Transactional

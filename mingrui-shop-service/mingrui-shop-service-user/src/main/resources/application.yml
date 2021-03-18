@@ -6,7 +6,7 @@ spring:
     # 数据库标识，可以配置多个redis使用不同的标识区分
     database: 0
     # redisIP地址
-    host: 81.70.213.75
+    host: 81.70.218.233
     # redis端口号
     port: 6379
     # redis密码

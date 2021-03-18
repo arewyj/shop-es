@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * @ClassName SpuDetailDTO
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/1/7
  * @Version V1.0
  **/

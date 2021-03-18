@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * @ClassName BrandeEntity
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2020/12/25
  * @Version V1.0
  **/

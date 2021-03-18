@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @ClassName UserServiceImpl
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/10
  * @Version V1.0
  **/
@@ -44,6 +44,7 @@ public class UserServiceImpl extends BaseApiService implements UserService {
         }
         return this.setResultError("验证码输入错误");
     }
+
 
     @Override
     public Result<JSONObject> send(UserDTO userDTO) {

@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * @ClassName SpuEntity
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/1/5
  * @Version V1.0
  **/

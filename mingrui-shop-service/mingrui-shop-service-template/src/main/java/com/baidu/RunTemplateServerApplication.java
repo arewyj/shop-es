@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @ClassName RunTemplateServerApplication
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/8
  * @Version V1.0
  **/

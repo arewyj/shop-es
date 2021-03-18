@@ -3,7 +3,7 @@ package com.baidu.shop.utils;
 /**
  * @ClassName ObjectUtil
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2020/12/23
  * @Version V1.0
  **/

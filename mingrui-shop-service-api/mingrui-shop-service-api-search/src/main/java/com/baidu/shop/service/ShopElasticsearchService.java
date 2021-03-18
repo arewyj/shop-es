@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @ClassName ShopElasticsearchService
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/4
  * @Version V1.0
  **/

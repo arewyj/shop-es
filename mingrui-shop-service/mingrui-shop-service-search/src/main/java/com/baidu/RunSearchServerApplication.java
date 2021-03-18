@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @ClassName RunSearchServerApplication
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/4
  * @Version V1.0
  **/

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @ClassName SpecGroupDTO
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/1/4
  * @Version V1.0
  **/

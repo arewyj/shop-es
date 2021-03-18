@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 /**
  * @ClassName categoryFeign
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2021/3/6
  * @Version V1.0
  **/

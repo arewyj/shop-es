@@ -7,7 +7,7 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
 /**
  * @ClassName CategoryBrandMapper
  * @Description: TODO
- * @Author yyq
+ * @Author wyj
  * @Date 2020/12/28
  * @Version V1.0
  **/
